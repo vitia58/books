@@ -5,16 +5,19 @@ import * as dotenv from 'dotenv';
 
 import authRouter from './routes/auth';
 import booksRouter from './routes/books';
-import { authMiddleware } from './middlewares/auth';
 
 const app = express();
 
+dotenv.config();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/auth', authRouter);
-app.use('/books', authMiddleware, booksRouter);
+app.use('/books', booksRouter);
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
 
 export default app;

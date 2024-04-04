@@ -1,11 +1,12 @@
-import express, { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-const router = express.Router();
+import { Request, Response, Router } from 'express';
+import * as jwt from 'jsonwebtoken';
+const router = Router();
 
-/* GET home page. */
-router.get('/auth/token', (req: Request, res: Response) => {
+router.post('/token', (req: Request, res: Response) => {
   res.json({
-    token: jwt.sign({ user: 'NoNameBackender' }, 'secret', { expiresIn: '2h' }),
+    token: jwt.sign({ user: 'NoNameBackender' }, process.env.JWT_SECRET, {
+      expiresIn: '2h',
+    }),
   });
 });
 
